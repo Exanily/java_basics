@@ -1,3 +1,5 @@
+package ru.skillbox;
+
 public class Elevator {
     private int currentFloor = 1;
     private int minFloor;
