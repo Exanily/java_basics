@@ -32,7 +32,11 @@ public class Basket {
     }
 
     public void add(String name, int price) {
-        add(name, price, 1, 0);
+        add(name, price, 1, 1);
+    }
+
+    public void add(String name, int price, int count) {
+        add(name, price, count, 1);
     }
 
     public void add(String name, int price, int count, double weight) {
@@ -56,7 +60,7 @@ public class Basket {
         totalWeight = totalWeight + count * weight;
     }
 
-    public double getTotalWeight(){
+    public double getTotalWeight() {
         return totalWeight;
     }
 

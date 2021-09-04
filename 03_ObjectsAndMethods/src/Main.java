@@ -5,7 +5,7 @@ public class Main {
         Basket sachaBasket = new Basket();
         sachaBasket.add("Молоко", 40, 3, 1);
         sachaBasket.add("Кола", 80, 2, 2);
-        sachaBasket.add("Колбаса", 300, 4, 1);
+        sachaBasket.add("Колбаса", 300, 4,1);
         sachaBasket.print("Корзина Саши:");
         System.out.println("Общая стоимость всех товаров: " + sachaBasket.getTotalPrice() + " руб");
         System.out.println("Общая масса всех товаров: " + sachaBasket.getTotalWeight() + " кг.");
