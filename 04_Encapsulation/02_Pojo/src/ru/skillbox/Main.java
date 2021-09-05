@@ -10,7 +10,7 @@ public class Main {
 
         System.out.println("Название страны : " + germany.getNameCountry());
         System.out.println("Численность населения : " + germany.getPopulation());
-        System.out.println("Площадь в квадратных километрах : " + germany.getSquare() + " км^2");
+        System.out.println("Площадь в квадратных километрах : " + germany.getSquare());
         System.out.println("Название столицы : " + germany.getCapitalName());
         System.out.println("Наличие выхода к морю : " + germany.getSea());
     }
