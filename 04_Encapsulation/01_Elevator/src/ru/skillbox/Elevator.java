@@ -23,6 +23,9 @@ public class Elevator {
     }
 
     public void move(int floor) {
+        if (floor == 0) {
+            return;
+        }
 
         if (floor < minFloor || floor > maxFloor) {
             System.out.println("Ошибка");
@@ -32,13 +35,18 @@ public class Elevator {
         if (floor > currentFloor) {
             while (floor > currentFloor) {
                 moveUp();
-                System.out.println("Вы находитесь на " + getCurrentFloor() + " этаже");
+                if (currentFloor != 0){
+                    System.out.println("Вы находитесь на " + getCurrentFloor() + " этаже");
+                }
+
             }
         }
         if (floor < currentFloor) {
             while (floor < currentFloor) {
                 moveDown();
-                System.out.println("Вы находитесь на " + getCurrentFloor() + " этаже");
+                if (currentFloor != 0){
+                    System.out.println("Вы находитесь на " + getCurrentFloor() + " этаже");
+                }
             }
         }
     }
