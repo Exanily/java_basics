@@ -30,6 +30,7 @@ public class Country {
     public double getSquare() {
         return square;
     }
+    
 
     public void setSquare(double square) {
         this.square = square;

@@ -13,5 +13,11 @@ public class Main {
         System.out.println("Площадь в квадратных километрах : " + germany.getSquare());
         System.out.println("Название столицы : " + germany.getCapitalName());
         System.out.println("Наличие выхода к морю : " + germany.getSea());
+        System.out.println();
+
+        Car car = new Car("Tesla","Model 3");
+        car.setMaxSpeed(209);
+        car.setAutomaticTransmission(true);
+        car.print();
     }
 }
