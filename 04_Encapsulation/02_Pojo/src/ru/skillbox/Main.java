@@ -16,7 +16,7 @@ public class Main {
         System.out.println();
 
         Car car = new Car("Tesla","Model 3");
-        car.setMaxSpeed(209);
+        car.setMaxSpeed((short) 209);
         car.setAutomaticTransmission(true);
         car.print();
     }

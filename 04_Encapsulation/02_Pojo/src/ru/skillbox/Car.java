@@ -4,7 +4,7 @@ public class Car {
     private String brand;
     private String model;
     private boolean automaticTransmission;
-    private int maxSpeed;
+    private Short maxSpeed;
 
     public Car(String brand,String model){
         this.brand = brand;
@@ -35,11 +35,11 @@ public class Car {
         this.automaticTransmission = automaticTransmission;
     }
 
-    public int getMaxSpeed() {
+    public Short getMaxSpeed() {
         return maxSpeed;
     }
 
-    public void setMaxSpeed(int maxSpeed) {
+    public void setMaxSpeed(Short maxSpeed) {
         this.maxSpeed = maxSpeed;
     }
 
