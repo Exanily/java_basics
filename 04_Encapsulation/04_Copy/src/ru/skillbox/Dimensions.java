@@ -12,8 +12,30 @@ public class Dimensions {
         this.length = length;
     }
 
+    public Dimensions(){
+        this.width = 0;
+        this.height = 0;
+        this.length = 0;
+    }
+
+    public Dimensions setWidth(double width) {
+        return new Dimensions(width, height, length);
+    }
+
+    public Dimensions setHeight(double height) {
+        return new Dimensions(width, height, length);
+    }
+
+    public Dimensions setLength(double length) {
+        return new Dimensions(width, height, length);
+    }
+
 
     public Dimensions setDimensions(double width, double height, double length) {
+        return new Dimensions(width, height, length);
+    }
+
+    public Dimensions getDimensions() {
         return new Dimensions(width, height, length);
     }
 

@@ -30,6 +30,10 @@ public class Cargo {
         return new Cargo(dimensions, weight, deliveryAddress, overturn, registrationNumber, fragileCargo);
     }
 
+    public Dimensions getDimensions() {
+        return dimensions;
+    }
+
     public double getWeight() {
         return weight;
     }
@@ -50,15 +54,15 @@ public class Cargo {
         return fragileCargo;
     }
 
-    public void print() {
-        System.out.println("Ширина (м) : " + dimensions.getWidth());
-        System.out.println("Высота (м) : " + dimensions.getHeight());
-        System.out.println("Длина (м) : " + dimensions.getLength());
-        System.out.println("Масса (кг) : " + getWeight());
-        System.out.println("Адрес доставки : " + getDeliveryAddress());
-        System.out.println("Свойство — можно ли переворачивать : " + getOverturn());
-        System.out.println("Регистрационный номер : " + getRegistrationNumber());
-        System.out.println("Является ли груз хрупким : " + getFragileCargo());
-        System.out.println("Объём груза (м^3): " + dimensions.cargoVolume());
+    public String toString() {
+        return "Ширина (м) : " + dimensions.getWidth() + "\n" +
+                "Высота (м) : " + dimensions.getHeight() + "\n" +
+                "Длина (м) : " + dimensions.getLength() + "\n" +
+                "Масса (кг) : " + getWeight() + "\n" +
+                "Адрес доставки : " + getDeliveryAddress() + "\n" +
+                "Свойство — можно ли переворачивать : " + getOverturn() + "\n" +
+                "Регистрационный номер : " + getRegistrationNumber() + "\n" +
+                "Является ли груз хрупким : " + getFragileCargo() + "\n" +
+                "Объём груза (м^3): " + dimensions.cargoVolume();
     }
 }
