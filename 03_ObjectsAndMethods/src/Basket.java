@@ -6,6 +6,10 @@ public class Basket {
     private int limit;
     private double totalWeight = 0;
 
+    private static int totalCost = 0;
+    private static int totalAmountProduct = 0;
+
+
     public Basket() {
         increaseCount(1);
         items = "Список товаров:";
@@ -23,12 +27,16 @@ public class Basket {
         this.totalPrice = totalPrice;
     }
 
-    public static int getCount() {
-        return count;
-    }
-
     public static void increaseCount(int count) {
         Basket.count = Basket.count + count;
+    }
+
+    public static void increaseTotalCost(int count, int price) {
+        Basket.totalCost = Basket.totalCost + count * price;
+    }
+
+    public static void increaseTotalAmountProduct(int count) {
+        Basket.totalAmountProduct = Basket.totalAmountProduct + count;
     }
 
     public void add(String name, int price) {
@@ -58,12 +66,47 @@ public class Basket {
                 count + " шт. - " + price + " руб - " + weight + " кг.";
         totalPrice = totalPrice + count * price;
         totalWeight = totalWeight + count * weight;
+        increaseTotalCost(count, price);
+        increaseTotalAmountProduct(count);
     }
 
     public double getTotalWeight() {
         return totalWeight;
     }
 
+    public static int getTotalCost() {
+        return totalCost;
+    }
+
+    public static int getTotalAmountProduct() {
+        return totalAmountProduct;
+    }
+
+    public static int getCount() {
+        return count;
+    }
+
+    public int getTotalPrice() {
+        return totalPrice;
+    }
+
+    public static double averageProductPrice() {
+        if (totalAmountProduct > 0){
+            return totalCost / totalAmountProduct;
+        }
+        else {
+            return 0;
+        }
+    }
+
+    public static double averagePriceBasket(){
+        if (count > 0){
+            return totalCost/count;
+        }
+        else {
+            return 0;
+        }
+    }
 
     public void clear() {
         items = "";
@@ -72,9 +115,6 @@ public class Basket {
         System.out.println("Корзина очищена");
     }
 
-    public int getTotalPrice() {
-        return totalPrice;
-    }
 
     public boolean contains(String name) {
         return items.contains(name);
