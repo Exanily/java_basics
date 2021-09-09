@@ -1,12 +1,12 @@
 package ru.skillbox;
 
 public class ArithmeticCalculator {
-    private static int a;
-    private static int b;
+    private final int a;
+    private final int b;
 
     public ArithmeticCalculator(int a, int b) {
-        ArithmeticCalculator.a = a;
-        ArithmeticCalculator.b = b;
+        this.a = a;
+        this.b = b;
     }
 
     public int calculate(Operation operation) {
