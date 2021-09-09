@@ -9,16 +9,15 @@ public class ArithmeticCalculator {
         this.b = b;
     }
 
-    public int calculate(Operation operation) {
+    public void calculate(Operation operation) {
         if (operation == Operation.ADD) {
-            return a + b;
+            System.out.println("Сложение : " + (a + b));
         }
         if (operation == Operation.SUBTRACT) {
-            return a - b;
+            System.out.println("Вычитание  : " + (a - b));
         }
         if (operation == Operation.MULTIPLY) {
-            return a * b;
+            System.out.println("Вычитание  : " + (a * b));
         }
-        return 0;
     }
 }
