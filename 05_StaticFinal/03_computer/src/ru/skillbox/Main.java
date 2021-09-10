@@ -10,7 +10,8 @@ public class Main {
         HDD hdd = new HDD(HDDtype.SSD, 256, 0.1);
         Computer computer = new Computer("HyperPC", "Play", ram, screen, keyboard,hdd,cpu);
 
-        computer.setRam("da",456,234);
-        computer.getRAM();
+
+        System.out.println(computer);
+
     }
 }
