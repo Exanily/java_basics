@@ -3,7 +3,7 @@ package ru.skillbox;
 public class Main {
 
     public static void main(String[] args) {
-        RAM ram = new RAM("DDDR4", 8, 0.03);
+        RAM ram = new RAM("DDR4", 8, 0.03);
         CPU cpu = new CPU(2500, 8, "Intel", 0.05);
         Screen screen = new Screen(20, ScreenType.IPS, 5);
         Keyboard keyboard = new Keyboard("MEMBRANE", true, 2);
