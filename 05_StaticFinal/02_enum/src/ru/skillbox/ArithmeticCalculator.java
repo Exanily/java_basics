@@ -9,14 +9,17 @@ public class ArithmeticCalculator {
         this.b = b;
     }
 
-    public int calculate(Operation operation) {
-        if (operation == Operation.ADD) {
-            return a + b;
-        } else if (operation == Operation.SUBTRACT) {
-            return a - b;
-        } else if (operation == Operation.MULTIPLY) {
-            return a * b;
-        } else return 0;
-
+    public void calculate(Operation operation) {
+        switch (operation) {
+            case ADD:
+                System.out.println("Сложение : " + (a + b));
+                break;
+            case SUBTRACT:
+                System.out.println("Вычитание  : " + (a - b));
+                break;
+            case MULTIPLY:
+                System.out.println("Умножение : " + (a * b));
+                break;
+        }
     }
 }
