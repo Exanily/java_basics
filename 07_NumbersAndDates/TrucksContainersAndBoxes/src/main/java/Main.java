@@ -12,21 +12,21 @@ public class Main {
         int container = (int) Math.ceil((double) box / MAX_BOX);
         int truck = (int) Math.ceil((double) container / MAX_CONTAINER);
 
-        int container_i = 1;
-        int box_i = 1;
+        int containerCounter = 1;
+        int boxCounter = 1;
         for (int i = 1; i <= truck; i++) {
             System.out.println("Грузовик: " + i);
-            for (int j = container_i; j <= container; j++) {
+            for (int j = containerCounter; j <= container; j++) {
                 System.out.println("\tКонтейнер: " + j);
-                for (int f = box_i; f <= box; f++) {
+                for (int f = boxCounter; f <= box; f++) {
                     System.out.println("\t\tЯщик: " + f);
                     if (f % MAX_BOX == 0) {
-                        box_i = ++f;
+                        boxCounter = ++f;
                         break;
                     }
                 }
                 if (j % MAX_CONTAINER == 0) {
-                    container_i = ++j;
+                    containerCounter = ++j;
                     break;
                 }
             }
