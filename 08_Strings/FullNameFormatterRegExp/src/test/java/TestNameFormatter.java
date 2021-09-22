@@ -90,7 +90,7 @@ public class TestNameFormatter {
     @Test
     @DisplayName("Текст = 1111 2222 3333")
     void numberInput() {
-        launchApplication(
+     launchApplication(
                 collectTestInput("1111 2222 3333"),
                 collectTestOutput("Введенная строка не является ФИО"));
     }
