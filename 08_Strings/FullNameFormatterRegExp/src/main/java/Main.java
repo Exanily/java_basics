@@ -12,20 +12,15 @@ public class Main {
             if (input.equals("0")) {
                 break;
             }
+
+            System.out.println();
             System.out.println(fullName(input));
         }
     }
 
     public static String fullName(String input) {
-        char ch;
-        int space = 0;
-        for (int i = 0; i < input.length(); i++) {
-            ch = input.charAt(i);
-            if (ch == ' ') {
-                space++;
-            }
-        }
-        if (space != 2 || input.charAt(0) == ' ' || input.charAt(0) == '-') {
+        String regex2 = "[А-я- А-я А-я]+";
+        if (!input.matches(regex2)){
             return "Введенная строка не является ФИО";
         }
         String[] name = new String[3];
@@ -40,7 +35,7 @@ public class Main {
             i++;
         }
         for (int j = 0; j < 3; j++) {
-            if (name[0] == null) {
+            if (name[j] == null) {
                 return "Введенная строка не является ФИО";
             }
         }

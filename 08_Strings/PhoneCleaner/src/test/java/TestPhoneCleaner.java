@@ -66,7 +66,7 @@ class TestPhoneCleaner {
   void simpleCleanPhoneSeparateDash() {
     launchApplication(
         collectTestInput("+7 909 123-45-67"),
-        collectTestOutput("79091234567"));
+        collectTestOutput("+7 (909) 123 45-67"));
   }
 
   @Test
@@ -74,7 +74,7 @@ class TestPhoneCleaner {
   void simpleCleanPhoneSeparateBracket() {
     launchApplication(
         collectTestInput("+7 (909) 1234567"),
-        collectTestOutput("79091234567"));
+        collectTestOutput("+7 (909) 123 45-67"));
   }
 
   @Test
@@ -82,7 +82,7 @@ class TestPhoneCleaner {
   void cleanPhoneInnerCountryCode() {
     launchApplication(
         collectTestInput("8-905-1234567"),
-        collectTestOutput("79051234567"));
+        collectTestOutput("+7 (905) 123 45-67"));
   }
 
   @Test
@@ -98,7 +98,7 @@ class TestPhoneCleaner {
   void phoneNumberWithoutCountryCode() {
     launchApplication(
         collectTestInput("905-1234567"),
-        collectTestOutput("79051234567"), "905-1234567 -> 79051234567");
+        collectTestOutput("+7 (905) 123 45-67"), "905-1234567 -> 79051234567");
   }
 
   @Test
