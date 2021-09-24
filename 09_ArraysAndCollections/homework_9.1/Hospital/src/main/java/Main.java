@@ -1,7 +1,7 @@
 public class Main {
     public static void main(String[] args) {
 
-        float[] temperatureData = Hospital.generatePatientsTemperatures(10);
+        float[] temperatureData = Hospital.generatePatientsTemperatures(15);
         System.out.println(Hospital.getReport(temperatureData));
 
         //Пример вывода в консоль:
