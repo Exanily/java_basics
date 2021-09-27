@@ -19,7 +19,7 @@ public class Main {
 
     public static void commands(String input) {
         String regex = "(ADD)?(DELETE)?(EDIT)?(LIST)? [\\w\\s]+";
-        String regex2 = "(ADD)?(DELETE)?(EDIT)?(LIST)?";
+        String regex2 = "(ADD)?(DELETE)?(EDIT)?";
         String command;
 
         if (!input.trim().matches(regex)) {
@@ -31,21 +31,19 @@ public class Main {
             } else if (input.trim().matches(regex2)) {
                 System.out.println("Ошибка");
             } else {
-                String text;
+                String text = input.substring(input.indexOf(' '));
+                String textTrim = text.trim();
                 switch (command) {
                     case "ADD": {
-                        text = input.substring(input.indexOf(' '));
-                        add(text.trim());
+                        add(textTrim);
                         break;
                     }
                     case "DELETE": {
-                        text = input.substring(input.indexOf(' ') + 1);
-                        delete(text.trim());
+                        delete(textTrim);
                         break;
                     }
                     case "EDIT": {
-                        text = input.substring(input.indexOf(' ') + 1);
-                        edit(text.trim());
+                        edit(textTrim);
                         break;
                     }
                 }
