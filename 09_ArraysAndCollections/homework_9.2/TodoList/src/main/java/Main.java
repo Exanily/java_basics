@@ -53,10 +53,8 @@ public class Main {
 
     public static void add(String input) {
         String index = input.substring(0, input.indexOf(' '));
-        String regex = "[0-9]+";
-        String text;
-        if (index.matches(regex)) {
-            text = input.substring(input.indexOf(' ') + 1);
+        if (check(index)) {
+            String text = input.substring(input.indexOf(' ') + 1);
             todoList.add(Integer.parseInt(index), text);
         } else {
             todoList.add(input);
@@ -70,20 +68,21 @@ public class Main {
     }
 
     public static void delete(String index) {
-        String regex = "[0-9]";
-        if (index.matches(regex)) {
+        if (check(index)) {
             todoList.delete(Integer.parseInt(index));
         } else System.out.println("Неверный индекс");
     }
 
     public static void edit(String text) {
         String index = text.substring(0, text.indexOf(' '));
-        String regex = "[0-9]+";
-        String text2;
-        if (index.matches(regex)) {
-            text2 = text.substring(text.indexOf(' ') + 1);
+        if (check(index)) {
+            String text2 = text.substring(text.indexOf(' ') + 1);
             todoList.edit(text2, Integer.parseInt(index));
         }
     }
 
+    private static boolean check(String index) {
+        String regex = "[0-9]+";
+        return index.matches(regex);
+    }
 }
