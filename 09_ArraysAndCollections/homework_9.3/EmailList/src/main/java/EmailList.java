@@ -2,12 +2,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.TreeSet;
+import java.util.regex.Pattern;
 
 public class EmailList {
     TreeSet<String> treeSet = new TreeSet<>();
+    public static final Pattern PATTERN = Pattern.compile("[\\w.-]+@[A-z]+\\.[A-z]+");
 
     public void add(String email) {
-        if(checkRegex(email)){
+        if (checkRegex(email)) {
             treeSet.add(emailLower(email));
         }
 
@@ -28,7 +30,6 @@ public class EmailList {
     }
 
     public static boolean checkRegex(String text) {
-        String regex = "[\\w.-]+@[A-z]+\\.[A-z]+";
-        return text.matches(regex);
+        return text.matches(PATTERN.pattern());
     }
 }
