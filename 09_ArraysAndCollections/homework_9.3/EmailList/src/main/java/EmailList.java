@@ -30,6 +30,6 @@ public class EmailList {
     }
 
     public static boolean checkRegex(String text) {
-        return text.matches(PATTERN.pattern());
+        return PATTERN.matcher(text).matches();
     }
 }
