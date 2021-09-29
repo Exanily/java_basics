@@ -1,37 +1,100 @@
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
+import java.util.regex.Pattern;
 
 public class PhoneBook {
+    HashMap<String, String> hashMap = new HashMap<>();
+    Map<String, String> map;
+    public static final Pattern PATTERN_NAME = Pattern.compile("[A-zА-я]+");
+    public static final Pattern PATTERN_PHONE = Pattern.compile("[0-9]+");
+    public static final String ERROR = "Неверный формат ввода";
+    public static final String SAVE = "Контакт сохранен!";
+    public static String number = "";
 
     public void addContact(String phone, String name) {
-        // проверьте корректность формата имени и телефона (отдельные методы для проверки)
-        // если такой номер уже есть в списке, то перезаписать имя абонента
+        if (checkName(name) && checkPhone(phone)) {
+            map = hashMap;
+            if (hashMap.containsValue(phone)) {
+                replaceKey(phone);
+            }
+            if (hashMap.containsKey(name)) {
+                addNumber(phone, name);
+                phone = number;
+            }
+            hashMap.put(name, phone);
+            System.out.println(SAVE);
+        } else System.out.println(ERROR);
     }
 
     public String getContactByPhone(String phone) {
-        // формат одного контакта "Имя - Телефон"
-        // если контакт не найдены - вернуть пустую строку
-        return "";
+        if (hashMap.containsValue(phone)) {
+            Map<String, String> map = hashMap;
+            String name = "";
+            for (Map.Entry<String, String> entry : map.entrySet()) {
+                String key = entry.getKey();
+                String value = entry.getValue();
+                if (phone.equals(value)) {
+                    name = key;
+                    break;
+                }
+            }
+            return name + " - " + phone;
+        } else
+            return "";
     }
 
     public Set<String> getContactByName(String name) {
-        // формат одного контакта "Имя - Телефон"
-        // если контакт не найден - вернуть пустой TreeSet
-        return new TreeSet<>();
+        if (hashMap.containsKey(name)) {
+            return new TreeSet<>(Collections.singleton(name + " - " + hashMap.get(name)));
+        } else
+            return new TreeSet<>();
     }
 
     public Set<String> getAllContacts() {
-        // формат одного контакта "Имя - Телефон"
-        // если контактов нет в телефонной книге - вернуть пустой TreeSet
-        return new TreeSet<>();
+        TreeSet<String> treeSet = new TreeSet<>();
+        map = hashMap;
+        for (Map.Entry<String, String> entry : map.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            treeSet.add(key + " - " + value);
+        }
+        return treeSet;
     }
 
-    // для обхода Map используйте получение пары ключ->значение Map.Entry<String,String>
-    // это поможет вам найти все ключи (key) по значению (value)
-    /*
-        for (Map.Entry<String, String> entry : map.entrySet()){
-            String key = entry.getKey(); // получения ключа
-            String value = entry.getValue(); // получения ключа
+    public void  replaceKey(String phone) {
+        String key = "";
+        for (Map.Entry<String, String> entry : map.entrySet()) {
+            String key2 = entry.getKey();
+            String value = entry.getValue();
+            if (value.equals(phone)) {
+                key = key2;
+            }
         }
-    */
+        hashMap.remove(key);
+    }
+
+    public void addNumber(String phone, String name) {
+        StringBuilder phoneBuilder = new StringBuilder(phone);
+        for (Map.Entry<String, String> entry : map.entrySet()) {
+            String key2 = entry.getKey();
+            String value = entry.getValue();
+            if (name.equals(key2)) {
+                phoneBuilder.insert(0, value + ", ");
+            }
+        }
+        number = phoneBuilder.toString();
+    }
+
+    public void printAllContacts() {
+        for (String s : getAllContacts()) {
+            System.out.println(s);
+        }
+    }
+
+    public boolean checkPhone(String phone) {
+        return PATTERN_PHONE.matcher(phone).matches();
+    }
+
+    public boolean checkName(String name) {
+        return PATTERN_NAME.matcher(name).matches();
+    }
 }
