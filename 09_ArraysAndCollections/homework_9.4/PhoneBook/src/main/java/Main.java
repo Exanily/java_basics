@@ -2,7 +2,7 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 
 public class Main {
-    static PhoneBook phoneBook = new PhoneBook();
+    private static final PhoneBook phoneBook = new PhoneBook();
     public static final Pattern LIST = Pattern.compile("LIST");
 
     public static void main(String[] args) {
@@ -39,7 +39,7 @@ public class Main {
             if (!phoneBook.hashMap.containsValue(text)) {
                 System.out.println("Такого номера нет в телефонной книге.\n" +
                         "Введите имя абонента для номера “" + text + "”:");
-            }else {
+            } else {
                 System.out.println("Такой номер есть в телефонной книге.\n" +
                         "Введите имя абонента для номера “" + text + "”:");
             }

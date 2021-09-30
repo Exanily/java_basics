@@ -3,16 +3,15 @@ import java.util.regex.Pattern;
 
 public class PhoneBook {
     HashMap<String, String> hashMap = new HashMap<>();
-    Map<String, String> map;
     public static final Pattern PATTERN_NAME = Pattern.compile("[A-zА-я]+");
     public static final Pattern PATTERN_PHONE = Pattern.compile("[0-9]+");
     public static final String ERROR = "Неверный формат ввода";
     public static final String SAVE = "Контакт сохранен!";
-    public static String number = "";
+    public static String number;
 
     public void addContact(String phone, String name) {
         if (checkName(name) && checkPhone(phone)) {
-            map = hashMap;
+
             if (hashMap.containsValue(phone)) {
                 replaceKey(phone);
             }
@@ -27,9 +26,8 @@ public class PhoneBook {
 
     public String getContactByPhone(String phone) {
         if (hashMap.containsValue(phone)) {
-            Map<String, String> map = hashMap;
             String name = "";
-            for (Map.Entry<String, String> entry : map.entrySet()) {
+            for (Map.Entry<String, String> entry : hashMap.entrySet()) {
                 String key = entry.getKey();
                 String value = entry.getValue();
                 if (phone.equals(value)) {
@@ -51,8 +49,7 @@ public class PhoneBook {
 
     public Set<String> getAllContacts() {
         TreeSet<String> treeSet = new TreeSet<>();
-        map = hashMap;
-        for (Map.Entry<String, String> entry : map.entrySet()) {
+        for (Map.Entry<String, String> entry : hashMap.entrySet()) {
             String key = entry.getKey();
             String value = entry.getValue();
             treeSet.add(key + " - " + value);
@@ -60,9 +57,9 @@ public class PhoneBook {
         return treeSet;
     }
 
-    public void  replaceKey(String phone) {
+    public void replaceKey(String phone) {
         String key = "";
-        for (Map.Entry<String, String> entry : map.entrySet()) {
+        for (Map.Entry<String, String> entry : hashMap.entrySet()) {
             String key2 = entry.getKey();
             String value = entry.getValue();
             if (value.equals(phone)) {
@@ -74,7 +71,7 @@ public class PhoneBook {
 
     public void addNumber(String phone, String name) {
         StringBuilder phoneBuilder = new StringBuilder(phone);
-        for (Map.Entry<String, String> entry : map.entrySet()) {
+        for (Map.Entry<String, String> entry : hashMap.entrySet()) {
             String key2 = entry.getKey();
             String value = entry.getValue();
             if (name.equals(key2)) {
