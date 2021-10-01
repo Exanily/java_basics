@@ -7,7 +7,6 @@ public class PhoneBook {
     public static final Pattern PATTERN_PHONE = Pattern.compile("[0-9]+");
     public static final String ERROR = "Неверный формат ввода";
     public static final String SAVE = "Контакт сохранен!";
-    public static String number;
 
     public void addContact(String phone, String name) {
         if (checkName(name) && checkPhone(phone)) {
@@ -16,8 +15,7 @@ public class PhoneBook {
                 replaceKey(phone);
             }
             if (hashMap.containsKey(name)) {
-                addNumber(phone, name);
-                phone = number;
+                phone = addNumber(phone, name);
             }
             hashMap.put(name, phone);
             System.out.println(SAVE);
@@ -69,7 +67,7 @@ public class PhoneBook {
         hashMap.remove(key);
     }
 
-    public void addNumber(String phone, String name) {
+    public String addNumber(String phone, String name) {
         StringBuilder phoneBuilder = new StringBuilder(phone);
         for (Map.Entry<String, String> entry : hashMap.entrySet()) {
             String key2 = entry.getKey();
@@ -78,7 +76,7 @@ public class PhoneBook {
                 phoneBuilder.insert(0, value + ", ");
             }
         }
-        number = phoneBuilder.toString();
+        return phoneBuilder.toString();
     }
 
     public void printAllContacts() {
