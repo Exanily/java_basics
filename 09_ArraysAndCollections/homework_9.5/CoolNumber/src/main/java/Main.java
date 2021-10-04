@@ -27,6 +27,8 @@ public class Main {
         System.out.println("Поиск перебором:");
         print(search, start, end);
 
+
+        Collections.sort(CoolNumbers.list);
         start = System.nanoTime();
         search = CoolNumbers.binarySearchInList(CoolNumbers.list, number);
         end = System.nanoTime();
