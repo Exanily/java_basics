@@ -26,21 +26,21 @@ public class Main {
         System.out.println("Поиск перебором:");
         print(search, start, end);
 
-        Collections.sort(CoolNumbers.list);
+        Collections.sort(list);
         start = System.nanoTime();
-        search = CoolNumbers.binarySearchInList(CoolNumbers.list, number);
+        search = CoolNumbers.binarySearchInList(list, number);
         end = System.nanoTime();
         System.out.println("Бинарный поиск:");
         print(search, start, end);
 
-        HashSet<String> hashSet = new HashSet<>(CoolNumbers.list);
+        HashSet<String> hashSet = new HashSet<>(list);
         start = System.nanoTime();
         search = CoolNumbers.searchInHashSet(hashSet, number);
         end = System.nanoTime();
         System.out.println("Поиск в HashSet:");
         print(search, start, end);
 
-        TreeSet<String> treeSet = new TreeSet<>(CoolNumbers.list);
+        TreeSet<String> treeSet = new TreeSet<>(list);
         start = System.nanoTime();
         search = CoolNumbers.searchInTreeSet(treeSet, number);
         end = System.nanoTime();
