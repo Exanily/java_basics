@@ -1,6 +1,4 @@
-import java.util.HashSet;
-import java.util.Scanner;
-import java.util.TreeSet;
+import java.util.*;
 
 public class Main {
 
@@ -21,11 +19,43 @@ public class Main {
     }
 
     public static void numbers(String number) {
-        CoolNumbers.bruteForceSearchInList(CoolNumbers.list, number);
-        CoolNumbers.binarySearchInList(CoolNumbers.list, number);
+        List<String> list = CoolNumbers.list;
+        boolean search;
+        long start = System.nanoTime();
+        search = CoolNumbers.bruteForceSearchInList(list, number);
+        long end = System.nanoTime();
+        System.out.println("Поиск перебором:");
+        print(search, start, end);
+
+        start = System.nanoTime();
+        search = CoolNumbers.binarySearchInList(CoolNumbers.list, number);
+        end = System.nanoTime();
+        System.out.println("Бинарный поиск:");
+        print(search, start, end);
+
         HashSet<String> hashSet = new HashSet<>(CoolNumbers.list);
-        CoolNumbers.searchInHashSet(hashSet, number);
+        start = System.nanoTime();
+        search = CoolNumbers.searchInHashSet(hashSet, number);
+        end = System.nanoTime();
+        System.out.println("Поиск в HashSet:");
+        print(search, start, end);
+
         TreeSet<String> treeSet = new TreeSet<>(CoolNumbers.list);
-        CoolNumbers.searchInTreeSet(treeSet, number);
+        start = System.nanoTime();
+        search = CoolNumbers.searchInTreeSet(treeSet, number);
+        end = System.nanoTime();
+        System.out.println("Поиск в TreeSet:");
+        print(search, start, end);
+    }
+
+    public static void print(boolean b, long start, long end) {
+        long nanoTime = end - start;
+        String s;
+        if (b) {
+            s = "найден";
+        } else {
+            s = "не найден";
+        }
+        System.out.println(s + ", поиск занял " + nanoTime + "нс");
     }
 }
