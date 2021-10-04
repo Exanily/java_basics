@@ -20,13 +20,11 @@ public class Main {
 
     public static void numbers(String number) {
         List<String> list = CoolNumbers.list;
-        boolean search;
         long start = System.nanoTime();
-        search = CoolNumbers.bruteForceSearchInList(list, number);
+        boolean search = CoolNumbers.bruteForceSearchInList(list, number);
         long end = System.nanoTime();
         System.out.println("Поиск перебором:");
         print(search, start, end);
-
 
         Collections.sort(CoolNumbers.list);
         start = System.nanoTime();
