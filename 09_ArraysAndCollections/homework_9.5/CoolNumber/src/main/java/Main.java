@@ -23,28 +23,28 @@ public class Main {
         long start = System.nanoTime();
         boolean search = CoolNumbers.bruteForceSearchInList(list, number);
         long end = System.nanoTime();
-        System.out.println("Поиск перебором:");
+        System.out.print("Поиск перебором:");
         print(search, start, end);
 
         Collections.sort(list);
         start = System.nanoTime();
         search = CoolNumbers.binarySearchInList(list, number);
         end = System.nanoTime();
-        System.out.println("Бинарный поиск:");
+        System.out.print("Бинарный поиск:");
         print(search, start, end);
 
         HashSet<String> hashSet = new HashSet<>(list);
         start = System.nanoTime();
         search = CoolNumbers.searchInHashSet(hashSet, number);
         end = System.nanoTime();
-        System.out.println("Поиск в HashSet:");
+        System.out.print("Поиск в HashSet:");
         print(search, start, end);
 
         TreeSet<String> treeSet = new TreeSet<>(list);
         start = System.nanoTime();
         search = CoolNumbers.searchInTreeSet(treeSet, number);
         end = System.nanoTime();
-        System.out.println("Поиск в TreeSet:");
+        System.out.print("Поиск в TreeSet:");
         print(search, start, end);
     }
 
