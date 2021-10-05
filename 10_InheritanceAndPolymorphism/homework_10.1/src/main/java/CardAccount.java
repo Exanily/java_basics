@@ -1,4 +1,3 @@
-import java.util.Scanner;
 
 public class CardAccount extends BankAccount {
     // не забывайте, обращаться к методам и конструкторам родителя
