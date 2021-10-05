@@ -19,13 +19,12 @@ public class BankAccount {
     }
 
     public boolean send(BankAccount receiver, double amount) {
-        return money - amount > 0;
-    }
-
-    public void sendAccount(BankAccount receiver, double amount) {
-        if (send(receiver, amount)) {
+        if (money - amount > 0) {
             take(amount);
             receiver.put(amount);
-        }
+            return true;
+        } else return false;
     }
 }
+
+

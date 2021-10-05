@@ -4,7 +4,7 @@ public class Main {
         BankAccount account = new BankAccount();
         sashaAccount.put(1000);
         account.put(500);
-        sashaAccount.sendAccount(account, 300);
+        sashaAccount.send(account, 300);
         System.out.println(sashaAccount.getAmount());
         System.out.println(account.getAmount());
     }
