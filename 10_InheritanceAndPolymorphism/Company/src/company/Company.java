@@ -46,13 +46,13 @@ public class Company {
 
     public List<Employee> getTopSalaryStaff(int count) {
         count = chekCount(count);
-        employees.sort((o1, o2) -> Integer.compare(o2.getMonthSalary(), o1.getMonthSalary()));
+        employees.sort(Comparator.comparing(Employee::getMonthSalary).reversed());
         return new ArrayList<>(employees.subList(0, count));
     }
 
     public List<Employee> getLowestSalaryStaff(int count) {
         count = chekCount(count);
-        employees.sort(Comparator.comparingInt(Employee::getMonthSalary));
+        employees.sort(Comparator.comparing(Employee::getMonthSalary));
         return new ArrayList<>(employees.subList(0, count));
     }
 
