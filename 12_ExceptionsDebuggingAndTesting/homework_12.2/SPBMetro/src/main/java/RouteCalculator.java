@@ -97,6 +97,9 @@ public class RouteCalculator {
                 }
             }
         }
+        if (route.size() == 0) {
+            route = null;
+        }
         return route;
     }
 
