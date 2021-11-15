@@ -51,7 +51,6 @@ public class RouteCalculatorTest extends TestCase {
         Line line2 = new Line(2, "2");
         Line line3 = new Line(3, "3");
 
-
         line1.addStation(new Station("Горьковская", line1));
         line1.addStation(new Station("Невский проспект", line1));
 
@@ -76,17 +75,39 @@ public class RouteCalculatorTest extends TestCase {
         List<Station> routeWithOneConnections = calculator.getShortestRoute(fromWithOneConnections, toWithOneConnections);
         List<Station> routeWithTwoConnections = calculator.getShortestRoute(fromWithTwoConnections, toWithTwoConnections);
 
-        double actualRouteOnTheLine = RouteCalculator.calculateDuration(routeOnTheLine);
-        double expectedRouteOnTheLine = 2.5;
+        double actualTimeRouteOnTheLine = RouteCalculator.calculateDuration(routeOnTheLine);
+        double expectedTimeRouteOnTheLine = 2.5;
 
-        double actualWithOneConnection = RouteCalculator.calculateDuration(routeWithOneConnections);
-        double expectedWithOneConnection = 8.5;
+        double actualTimeWithOneConnection = RouteCalculator.calculateDuration(routeWithOneConnections);
+        double expectedTimeWithOneConnection = 8.5;
 
-        double actualWithTwoConnections = RouteCalculator.calculateDuration(routeWithTwoConnections);
-        double expectedWithTwoConnections = 14.5;
+        double actualTimeWithTwoConnections = RouteCalculator.calculateDuration(routeWithTwoConnections);
+        double expectedTimeWithTwoConnections = 14.5;
 
-        assertEquals(expectedRouteOnTheLine, actualRouteOnTheLine);
-        assertEquals(expectedWithOneConnection, actualWithOneConnection);
-        assertEquals(expectedWithTwoConnections,actualWithTwoConnections);
+        assertEquals(expectedTimeRouteOnTheLine, actualTimeRouteOnTheLine);
+        assertEquals(expectedTimeWithOneConnection, actualTimeWithOneConnection);
+        assertEquals(expectedTimeWithTwoConnections,actualTimeWithTwoConnections);
+
+        List<Station> actualRouteOnTheLine = new ArrayList<>();
+        actualRouteOnTheLine.add(new Station("Горьковская", line1));
+        actualRouteOnTheLine.add(new Station("Невский проспект", line1));
+
+        List<Station> actualRouteWithOneConnection = new ArrayList<>();
+        actualRouteWithOneConnection.add(new Station("Горьковская", line1));
+        actualRouteWithOneConnection.add(new Station("Невский проспект", line1));
+        actualRouteWithOneConnection.add(new Station("Гостиный двор", line2));
+        actualRouteWithOneConnection.add(new Station("Маяковская", line2));
+
+        List<Station> actualRouteWithTwoConnections = new ArrayList<>();
+        actualRouteWithTwoConnections.add(new Station("Горьковская", line1));
+        actualRouteWithTwoConnections.add(new Station("Невский проспект", line1));
+        actualRouteWithTwoConnections.add(new Station("Гостиный двор", line2));
+        actualRouteWithTwoConnections.add(new Station("Маяковская", line2));
+        actualRouteWithTwoConnections.add(new Station("Площадь Восстания", line3));
+        actualRouteWithTwoConnections.add(new Station("Чернышевская", line3));
+
+        assertEquals(routeOnTheLine, actualRouteOnTheLine);
+        assertEquals(routeWithOneConnections, actualRouteWithOneConnection);
+        assertEquals(routeWithTwoConnections, actualRouteWithTwoConnections);
     }
 }
