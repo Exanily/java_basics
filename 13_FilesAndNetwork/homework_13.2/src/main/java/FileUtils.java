@@ -14,7 +14,6 @@ public class FileUtils {
             Path sourcePath = sourceDir.toPath();
             try (Stream<Path> paths = Files.walk(Paths.get(sourceDirectory))) {
                 paths.forEach(path -> {
-                    System.out.println(destPath.resolve(sourcePath.relativize(path)));
                     Path dest = destPath.resolve(sourcePath.relativize(path));
                     if (Files.exists(dest)) {
                         try {
