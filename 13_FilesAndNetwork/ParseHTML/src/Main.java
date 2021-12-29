@@ -15,7 +15,9 @@ public class Main {
         Path pathToFile = Paths.get(filename);
         if (!new File(pathToFile.toString()).exists()) {
             File file = new File(filename);
-            file.mkdir();
+            if(file.mkdir()){
+                System.out.println("Файл " + filename + " создан");
+            }
         }
         try {
             Document document = Jsoup.connect("https://lenta.ru").get();
