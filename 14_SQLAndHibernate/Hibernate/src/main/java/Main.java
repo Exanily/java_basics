@@ -14,12 +14,8 @@ public class Main {
     private static final Transaction TRANSACTION = SESSION.beginTransaction();
 
     public static void main(String[] args) {
-        Course course = SESSION.get(Course.class, 47);
-        Student student = new Student();
-        student.setName("ASD");
-        Subscription subscription = new Subscription();
-        subscription.setCourse(course);
-        subscription.setStudent(student);
+        Course course = SESSION.get(Course.class, 1);
+
         SESSION.save(course);
         TRANSACTION.commit();
         SESSION_FACTORY.close();

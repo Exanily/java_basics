@@ -5,11 +5,11 @@ import java.util.Date;
 @Table(name = "purchaselist")
 public class PurchaseList {
     @Id
-    @Column(name = "student_name")
-    private String studentName;
+    @OneToOne(cascade = CascadeType.ALL)
+    private Student studentName;
 
-    @Column(name = "course_name")
-    private String courseName;
+    @OneToOne(cascade = CascadeType.ALL)
+    private Course course;
 
     private int price;
 
