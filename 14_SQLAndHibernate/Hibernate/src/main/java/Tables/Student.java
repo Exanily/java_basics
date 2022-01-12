@@ -1,3 +1,5 @@
+package Tables;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -14,6 +16,8 @@ public class Student {
 
     @Column(name = "registration_date")
     private Date registrationDate;
+
+
 
     public int getId() {
         return id;

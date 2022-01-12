@@ -1,3 +1,4 @@
+import Tables.Course;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -16,6 +17,7 @@ public class Main {
     public static void main(String[] args) {
         Course course = SESSION.get(Course.class, 1);
 
+        System.out.println(course.getStudentsCount());
         SESSION.save(course);
         TRANSACTION.commit();
         SESSION_FACTORY.close();

@@ -1,3 +1,5 @@
+package Tables;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -35,9 +37,13 @@ public class Course {
             inverseJoinColumns = {@JoinColumn(name = "student_id")})
     private List<Student> students;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "SUBSCRIPTIONS")
-    private List<Subscription> subscriptions;
+    public List<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<Student> students) {
+        this.students = students;
+    }
 
     public int getId() {
         return id;
