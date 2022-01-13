@@ -22,6 +22,28 @@ public class PurchaseList {
     @Column(name = "subscription_date")
     private Date subscriptionDate;
 
+    @ManyToOne
+    @JoinColumn(name = "course_name", referencedColumnName = "name", insertable = false, updatable = false)
+    private Course course;
+
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "student_name", referencedColumnName = "name", insertable = false, updatable = false)
+    private Student student;
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
+    }
+
+
+    public Course getCourse() {
+        return course;
+    }
+
     public int getPrice() {
         return price;
     }

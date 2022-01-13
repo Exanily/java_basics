@@ -18,6 +18,21 @@ public class LinkedPurchaseList {
     private int courseId;
 
 
+    @ManyToOne
+    @JoinColumns({
+            @JoinColumn(name = "student_id", referencedColumnName = "student_name", insertable = false, updatable = false),
+            @JoinColumn(name = "course_id", referencedColumnName = "course_name", insertable = false, updatable = false)
+    })
+    private PurchaseList purchaseList;
+
+    public void setPurchaseList(PurchaseList purchaseList) {
+        this.purchaseList = purchaseList;
+    }
+
+    public PurchaseList getPurchaseList() {
+        return purchaseList;
+    }
+
     public KeyLinkedPurchaseList getKey() {
         return key;
     }

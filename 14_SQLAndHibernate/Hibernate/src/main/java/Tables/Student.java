@@ -17,8 +17,6 @@ public class Student {
     @Column(name = "registration_date")
     private Date registrationDate;
 
-
-
     public int getId() {
         return id;
     }
