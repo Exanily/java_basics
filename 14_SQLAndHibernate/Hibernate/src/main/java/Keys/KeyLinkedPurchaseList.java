@@ -13,6 +13,15 @@ public class KeyLinkedPurchaseList implements Serializable {
     @Column(name = "course_id")
     private int courseId;
 
+    public KeyLinkedPurchaseList(int studentId, int courseId) {
+        this.studentId = studentId;
+        this.courseId = courseId;
+    }
+
+    public KeyLinkedPurchaseList() {
+
+    }
+
     public int getStudentId() {
         return studentId;
     }

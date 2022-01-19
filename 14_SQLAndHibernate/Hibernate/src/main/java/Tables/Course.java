@@ -20,11 +20,11 @@ public class Course {
 
     private String description;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Teacher teacher;
 
     @Column(name = "students_count")
-    private int studentsCount;
+    private Integer studentsCount;
 
     private int price;
 
@@ -97,7 +97,7 @@ public class Course {
         return studentsCount;
     }
 
-    public void setStudentsCount(int studentsCount) {
+    public void setStudentsCount(Integer studentsCount) {
         this.studentsCount = studentsCount;
     }
 
