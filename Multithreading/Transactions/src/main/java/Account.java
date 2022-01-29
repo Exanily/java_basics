@@ -1,22 +1,23 @@
 package main.java;
 
-public class Account {
+import java.util.concurrent.atomic.AtomicLong;
 
-    private long money;
+public class Account implements Comparable<Account> {
+
+    private final AtomicLong money = new AtomicLong();
     private String accNumber;
     private boolean blocking = false;
 
     public Account(String accNumber) {
         this.accNumber = accNumber;
-        this.money = 0;
     }
 
-    public long getMoney() {
+    public AtomicLong getMoney() {
         return money;
     }
 
     public void setMoney(long money) {
-        this.money = money;
+        this.money.set(money);
     }
 
     public String getAccNumber() {
@@ -33,5 +34,10 @@ public class Account {
 
     public void setBlocking(boolean blocking) {
         this.blocking = blocking;
+    }
+
+    @Override
+    public int compareTo(Account o) {
+        return this.getAccNumber().compareTo(o.accNumber);
     }
 }

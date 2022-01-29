@@ -9,6 +9,7 @@ public class Bank {
 
     private final Map<String, Account> accounts;
     private final Random random = new Random();
+    private Bank bank2;
 
     public Bank() {
         this.accounts = new HashMap<>();
@@ -21,37 +22,41 @@ public class Bank {
     }
 
     public void transfer(String fromAccountNum, String toAccountNum, long amount) throws InterruptedException {
-        Account fromAccount = accounts.get(fromAccountNum);
-        Account toAccount = accounts.get(toAccountNum);
-        if (fromAccount.isBlocking()) {
+        Account from = accounts.get(toAccountNum);
+        Account to = accounts.get(fromAccountNum);
+        if (from.isBlocking()) {
             printBlock(fromAccountNum);
             return;
         }
-        if (toAccount.isBlocking()) {
+        if (to.isBlocking()) {
             printBlock(fromAccountNum);
             return;
         }
-        if (accounts.get(fromAccountNum).getMoney() >= amount) {
+        if (from.getMoney().get() >= amount) {
             if (amount > 50000 && isFraud(fromAccountNum, toAccountNum, amount)) {
                 block(fromAccountNum, toAccountNum);
             } else {
-                fromAccount.setMoney(fromAccount.getMoney() - amount);
-                toAccount.setMoney(toAccount.getMoney() + amount);
-                System.out.println("Со счёта " + fromAccountNum + " переведено " + amount + " руб" + " на счёт " + toAccountNum);
+                synchronized (from.compareTo(to) > 0 ? to : from) {
+                    synchronized (to.compareTo(from) > 0 ? from : to) {
+                        from.setMoney(from.getMoney().get() - amount);
+                        to.setMoney(to.getMoney().get() + amount);
+                        System.out.println("Со счёта " + fromAccountNum + " переведено " + amount + " руб" + " на счёт " + toAccountNum);
+                    }
+                }
             }
         } else {
-            System.out.println("Недостаточно средств");
+            System.out.println("На счету " + from.getAccNumber() + " недостаточно средств");
         }
-
     }
 
-    public long getBalance(String accountNum) {
+
+    public AtomicLong getBalance(String accountNum) {
         return accounts.get(accountNum).getMoney();
     }
 
     public long getSumAllAccounts() {
         AtomicLong money = new AtomicLong();
-        accounts.values().forEach(account -> money.addAndGet(account.getMoney()));
+        accounts.values().forEach(account -> money.addAndGet(account.getMoney().get()));
         return money.get();
     }
 

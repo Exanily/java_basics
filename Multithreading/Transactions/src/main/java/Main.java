@@ -1,12 +1,13 @@
 package main.java;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         Bank bank = new Bank();
+
         for (int i = 1; i <= 100; i++) {
             String s = String.valueOf(i);
             Account account = new Account(s);
-            account.setMoney(60000);
+            account.setMoney(600000);
             bank.addAccount(s, account);
         }
         System.out.println(bank.getSumAllAccounts());
@@ -15,7 +16,7 @@ public class Main {
 
         for (int i = 0; i < cores; i++) {
             new Thread(() -> {
-                for (int j = 0; j < 100000; j++) {
+                for (int j = 0; j < 10000; j++) {
                     String random1 = String.valueOf((int) (Math.random() * 99) + 1);
                     String random2 = String.valueOf((int) (Math.random() * 99) + 1);
                     try {
