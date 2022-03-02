@@ -1,56 +1,70 @@
 package main;
 
+import main.model.ToDoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import response.ToDoList;
+import main.model.ToDoList;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class ToDoListController {
+
+    @Autowired
+    private ToDoRepository repository;
+
     @GetMapping("/todo/")
     public List<ToDoList> list() {
-        return Storage.getAllToDo();
+        Iterable<ToDoList> iterable = repository.findAll();
+        ArrayList<ToDoList> list = new ArrayList<>();
+        iterable.forEach(list::add);
+        return list;
+    }
+
+    @GetMapping("/todo/{id}")
+    public ResponseEntity<ToDoList> get(@PathVariable int id) {
+        Optional<ToDoList> optional = repository.findById(id);
+        if (optional.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+        return new ResponseEntity<>(optional.get(), HttpStatus.OK);
     }
 
     @PostMapping("/todo/")
     public int add(ToDoList list) {
-        return Storage.addToDo(list);
+        ToDoList toDoList = repository.save(list);
+        return toDoList.getId();
     }
 
-    @GetMapping("/todo/{id}")
-    public ResponseEntity get(@PathVariable int id) {
-        ToDoList list = Storage.getToDo(id);
-        if (list == null) {
+    @PutMapping("/todo/{id}")
+    public ResponseEntity<ToDoList> put(@PathVariable int id, ToDoList list) {
+        Optional<ToDoList> optional = repository.findById(id);
+        if (optional.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
-        return new ResponseEntity(list, HttpStatus.OK);
+        ToDoList toDoList = optional.get();
+        toDoList.setName(list.getName());
+        repository.save(toDoList);
+        return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
     @DeleteMapping("/todo/")
     public String deleteAll() {
-        Storage.deleteAll();
+        repository.deleteAll();
         return "Все дела удалены";
     }
 
     @DeleteMapping("/todo/{id}")
-    public ResponseEntity deleteId(@PathVariable int id) {
-        Integer integer = Storage.delete(id);
-        if (integer == null) {
+    public ResponseEntity<ToDoList> deleteId(@PathVariable int id) {
+        Optional<ToDoList> optional = repository.findById(id);
+        if (optional.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
-        return new ResponseEntity(integer, HttpStatus.OK);
+        repository.deleteById(id);
+        return new ResponseEntity<>(optional.get(), HttpStatus.OK);
     }
-
-    @PutMapping("/todo/{id}")
-    public ResponseEntity put(@PathVariable int id, ToDoList list) {
-        Integer integer = Storage.put(id, list);
-        if (integer == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        }
-        return new ResponseEntity(integer, HttpStatus.OK);
-    }
-
 }
