@@ -1,15 +1,33 @@
 package main;
 
+import main.model.ToDoList;
+import main.model.ToDoRepository;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Date;
+import java.util.ArrayList;
 
 
-@RestController
+@Controller
 public class DefaultController {
+    private final ToDoRepository repository;
+
+    public DefaultController(ToDoRepository repository) {
+        this.repository = repository;
+    }
+
     @RequestMapping("/")
-    public String index() {
-        return new Date() + " " + Math.random();
+    public String index(Model model) {
+        Iterable<ToDoList> iterable = repository.findAll();
+        ArrayList<ToDoList> toDoList = new ArrayList<>();
+
+        for (ToDoList list : iterable) {
+            toDoList.add(list);
+        }
+
+        model.addAttribute("books", toDoList)
+                .addAttribute("booksCount", toDoList.size());
+        return "index";
     }
 }
