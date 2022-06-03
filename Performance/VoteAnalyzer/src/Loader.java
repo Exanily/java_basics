@@ -5,6 +5,8 @@ import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -12,16 +14,25 @@ import java.util.HashMap;
 
 public class Loader {
 
-    private static SimpleDateFormat birthDayFormat = new SimpleDateFormat("yyyy.MM.dd");
-    private static SimpleDateFormat visitDateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+    private static final SimpleDateFormat birthDayFormat = new SimpleDateFormat("yyyy.MM.dd");
+    private static final SimpleDateFormat visitDateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
 
-    private static HashMap<Integer, WorkTime> voteStationWorkTimes = new HashMap<>();
-    private static HashMap<Voter, Integer> voterCounts = new HashMap<>();
+    private static final HashMap<Integer, WorkTime> voteStationWorkTimes = new HashMap<>();
+    private static final HashMap<Voter, Integer> voterCounts = new HashMap<>();
 
     public static void main(String[] args) throws Exception {
-        String fileName = "res/data-1M.xml";
+        long usage = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
+        String fileName = "res/data-18M.xml";
 
-        parseFile(fileName);
+        SAXParserFactory factory = SAXParserFactory.newInstance();
+        SAXParser parser = factory.newSAXParser();
+        XMLHandler handler = new XMLHandler();
+        parser.parse(new File(fileName), handler);
+        handler.printDuplicatedVoter();
+        usage = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory() - usage;
+        System.out.println(usage);
+
+        /*parseFile(fileName);
 
         //Printing results
         System.out.println("Voting station work times: ");
@@ -36,7 +47,7 @@ public class Loader {
             if (count > 1) {
                 System.out.println("\t" + voter + " - " + count);
             }
-        }
+        }*/
     }
 
     private static void parseFile(String fileName) throws Exception {
@@ -57,7 +68,7 @@ public class Loader {
 
             String name = attributes.getNamedItem("name").getNodeValue();
             Date birthDay = birthDayFormat
-                .parse(attributes.getNamedItem("birthDay").getNodeValue());
+                    .parse(attributes.getNamedItem("birthDay").getNodeValue());
 
             Voter voter = new Voter(name, birthDay);
             Integer count = voterCounts.get(voter);
