@@ -4,6 +4,7 @@ import org.xml.sax.helpers.DefaultHandler;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -11,10 +12,10 @@ public class XMLHandler extends DefaultHandler {
 
     private Voter voter;
     private static final SimpleDateFormat birthDayFormat = new SimpleDateFormat("yyyy.MM.dd");
-    private final HashMap<Voter, Integer> voterCounts;
+    private final ArrayList<Voter> voterCounts;
 
     public XMLHandler() {
-        voterCounts = new HashMap<>();
+        voterCounts = new ArrayList<>();
     }
 
     @Override
@@ -25,8 +26,7 @@ public class XMLHandler extends DefaultHandler {
                 Date birthDay = birthDayFormat.parse(attributes.getValue("birthDay"));
                 voter = new Voter(attributes.getValue("name"), birthDay);
             } else if (qName.equals("visit") && voter != null) {
-                int count = voterCounts.getOrDefault(voter, 0);
-                voterCounts.put(voter, count + 1);
+                voterCounts.add(voter);
             }
         } catch (ParseException e) {
             e.printStackTrace();
@@ -41,11 +41,8 @@ public class XMLHandler extends DefaultHandler {
     }
 
     public void printDuplicatedVoter() {
-        for (Voter voter : voterCounts.keySet()) {
-            int count = voterCounts.get(voter);
-            if (count > 1) {
-                System.out.println(voter.toString() + " - " + count);
-            }
+        for (Voter voter : voterCounts) {
+            System.out.println(voter.toString());
         }
     }
 }
