@@ -36,11 +36,11 @@ public class DBConnection {
                 "VALUE " + builder.toString() +
                 "ON DUPLICATE KEY UPDATE `count`=`count` + 1";
         DBConnection.getConnection().createStatement().execute(sql);
+        builder = new StringBuilder();
     }
 
-    public static void countVoter(String name, String birthDay) throws SQLException {
+    public static void countVoter(String name, String birthDay) {
         birthDay = birthDay.replace('.', '-');
-
         boolean isStart = builder.length() == 0;
         builder.append(isStart ? "" : ",").append("('").append(name).append("', '").append(birthDay).append("', 1)");
     }

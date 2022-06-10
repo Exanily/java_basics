@@ -22,7 +22,6 @@ public class XMLHandler extends DefaultHandler {
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
         try {
             if (qName.equals("voter")) {
-
                 Date birthDay = birthDayFormat.parse(attributes.getValue("birthDay"));
                 voter = new Voter(attributes.getValue("name"), birthDay);
             } else if (qName.equals("visit") && voter != null) {
@@ -44,5 +43,9 @@ public class XMLHandler extends DefaultHandler {
         for (Voter voter : voterCounts) {
             System.out.println(voter.toString());
         }
+    }
+
+    public ArrayList<Voter> getVoters() {
+        return voterCounts;
     }
 }

@@ -5,8 +5,11 @@ import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -20,33 +23,43 @@ public class Loader {
 
     public static void main(String[] args) throws Exception {
         String fileName = "res/data-1572M.xml";
+        long start = System.currentTimeMillis();
 
         parseFile(fileName);
+        System.out.println(System.currentTimeMillis() - start + " ms");
 
-        DBConnection.printVoterCounts();
 
     }
 
     private static void parseFile(String fileName) throws Exception {
-        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+       /* DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         DocumentBuilder db = dbf.newDocumentBuilder();
-        Document doc = db.parse(new File(fileName));
+        Document doc = db.parse(new File(fileName));*/
 
-        findEqualVoters(doc);
+        SAXParserFactory factory = SAXParserFactory.newInstance();
+        SAXParser parser = factory.newSAXParser();
+        XMLHandler handler = new XMLHandler();
+        parser.parse(new File(fileName), handler);
+
+        ArrayList<Voter> voters = handler.getVoters();
+
+        findEqualVoters(voters);
         //fixWorkTimes(doc);
     }
 
-    private static void findEqualVoters(Document doc) throws Exception {
-        NodeList voters = doc.getElementsByTagName("voter");
-        int votersCount = voters.getLength();
+    private static void findEqualVoters(ArrayList<Voter> voters) throws Exception {
+        int votersCount = voters.size();
+        System.out.println(votersCount);
         for (int i = 0; i < votersCount; i++) {
-            Node node = voters.item(i);
-            NamedNodeMap attributes = node.getAttributes();
 
-            String name = attributes.getNamedItem("name").getNodeValue();
-            String birthDay = attributes.getNamedItem("birthDay").getNodeValue();
-
+            Voter voter = voters.get(i);
+            String name = voter.getName();
+            String birthDay = birthDayFormat.format(voter.getBirthDay());
             DBConnection.countVoter(name, birthDay);
+            if(i % 1_300_000 == 0){
+                System.out.println(i);
+                DBConnection.executeMultiInsert();
+            }
         }
         DBConnection.executeMultiInsert();
     }
