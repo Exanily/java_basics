@@ -49,15 +49,12 @@ public class Loader {
 
     private static void findEqualVoters(ArrayList<Voter> voters) throws Exception {
         int votersCount = voters.size();
-        System.out.println(votersCount);
         for (int i = 0; i < votersCount; i++) {
-
             Voter voter = voters.get(i);
             String name = voter.getName();
             String birthDay = birthDayFormat.format(voter.getBirthDay());
             DBConnection.countVoter(name, birthDay);
             if(i % 1_300_000 == 0){
-                System.out.println(i);
                 DBConnection.executeMultiInsert();
             }
         }
